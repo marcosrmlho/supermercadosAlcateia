@@ -9,7 +9,7 @@ public class Caixa extends Funcionario {
     }
 
     public void registrarVenda() {
-        // Lógica para registrar uma venda
+        // Lógica para registrar uma venda (criar )
     }
     public void emitirRecibo() {
         // Lógica para emitir um recibo

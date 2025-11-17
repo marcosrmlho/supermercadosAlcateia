@@ -6,6 +6,7 @@ public class CartaoBanco {
     private double limite;
     private double saldoDisponivel;
     private boolean bloqueado;
+    //05.11.2025: revisar necessidades de atributos, além de considerar a adição de um atributo "tipoCartao" --ramalho
 
     public CartaoBanco(String numeroCartao, String validade, String bandeira, double limite) {
         this.numeroCartao = numeroCartao;
@@ -16,7 +17,7 @@ public class CartaoBanco {
         this.bloqueado = false;
     }
     public boolean autorizarPagamento() {
-        // Logica para autorização de pagamento
+        // Lógica para autorização de pagamento: verificar se: 01.- o cartao ta bloqueado; 02.- o cartao tem saldo ou limite para realizar a transação. ao final, se todas as condições estiverem certas, retira o dinheiro da conta e chama a funcao de "gerarNotaFiscal()" da classe Venda.
         return false; //placeholder
     }
 

@@ -1,4 +1,6 @@
 package pessoas;
+import java.util.Scanner;
+import vender.Venda;
 public class Cliente extends Pessoa {
     private String telefone;
     private String email;
@@ -9,12 +11,14 @@ public class Cliente extends Pessoa {
         this.email = email;
     }
 
-    public void realizarCompra() {
-        // Lógica para realizar uma compra
+    public void realizarCompra(String dataHora, Scanner teclado){
+        Venda venda = new Venda(dataHora, teclado);
+        //05.11.2025: continuar esse método --ramalho
+        
     }
 
-    public void cadastrarCartao(/*talvez entre o numero do cartao aqui, pq ele é atributo de unicidade do cartao*/){
-        // Lógica para cadastrar um cartão
+    public void cadastrarCartao(){
+        // Lógica para cadastrar um cartão: perguntas simples para cadastro do cartao. no final, adiciona o cartao ao cliente (cria atributo ou nao??)
     }
 
     @Override

@@ -3,6 +3,7 @@ public class Funcionario extends Pessoa {
 
     protected double salario;
     protected String turno;
+    protected boolean ponto;
 
     public Funcionario(String nome, String cpf, double salario, String turno) {
         super(nome, cpf);
@@ -11,7 +12,8 @@ public class Funcionario extends Pessoa {
     }
 
     public void registrarPonto() {
-        // Lógica para registrar o ponto do funcionário
+        this.ponto = true;
+        System.out.println("Ponto registrado para " + this.nome);
     }
 
     @Override

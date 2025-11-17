@@ -1,3 +1,4 @@
+//05.11.2025: remover essa classe, deixar apenas o produto (sem abstract). -- ramalho
 package vender;
 public class Salgado extends Produto {
     private boolean temperatura;
