@@ -1,25 +1,28 @@
+//Beatriz Alonso de Lima Soares
+//João Paulo Leal Martins
+//Marcos Pedro Maciel Ramalho
+
 package vender;
 public class CartaoBanco {
     private String numeroCartao;
     private double limite;
     private double saldoDisponivel;
-    private boolean bloqueado;
     private boolean tipoCartao;
 
-    public CartaoBanco(String numeroCartao, double limite, boolean tipoCartao) {
+    public CartaoBanco(String numeroCartao, double limite, double saldoInicial) {
         this.numeroCartao = numeroCartao;
         this.limite = limite;
-        this.saldoDisponivel = tipoCartao ? 0 : 1000.0; // Débito começa com saldo
-        this.bloqueado = false;
-        this.tipoCartao = tipoCartao;
+        this.saldoDisponivel = saldoInicial;
+        this.tipoCartao = true;
+    }
+    public CartaoBanco(String numeroCartao, double saldoInicial) {
+        this.numeroCartao = numeroCartao;
+        this.saldoDisponivel = saldoInicial;
+        this.limite = 0;
+        this.tipoCartao = false;
     }
     
     public boolean autorizarPagamento(double valor) {
-        if (this.bloqueado) {
-            System.out.println("Cartão bloqueado. Pagamento não autorizado.");
-            return false;
-        }
-
         if (this.tipoCartao) {
             if (valor <= this.limite) {
                 this.limite -= valor;
@@ -41,30 +44,6 @@ public class CartaoBanco {
         }
     }
 
-    public void atualizarLimite(double novoLimite) {
-        this.limite = novoLimite;
-    }
-
-    public void adicionarSaldo(double valor) {
-        if (!this.bloqueado) {
-            if (valor > 0) {
-                this.saldoDisponivel += valor;
-                System.out.println("Saldo adicionado: R$ " + valor);
-            }
-            else {
-                System.out.println("Valor inválido para adicionar saldo.");
-            }
-        }
-        else {
-            System.out.println("Cartão bloqueado. Não é possível adicionar saldo.");
-        }
-    }
-
-    public void bloquear() {
-        this.bloqueado = true;
-        System.out.println("Cartão bloqueado.");
-    }
-
     public void exibirDados() {
         System.out.println("Número do Cartão: " + this.numeroCartao);
         if (this.tipoCartao) {
@@ -72,7 +51,17 @@ public class CartaoBanco {
         } else {
             System.out.println("Saldo Disponível: R$ " + this.saldoDisponivel);
         }
-        System.out.println("Bloqueado: " + this.bloqueado);
         System.out.println("Tipo de Cartão: " + (this.tipoCartao ? "Crédito" : "Débito"));
+    }
+
+    public double getLimite() {
+        return limite;
+    }
+
+    public double getSaldoDisponivel() {
+        return saldoDisponivel;
+    }
+    public boolean tipoCartao() {
+        return tipoCartao;
     }
 }

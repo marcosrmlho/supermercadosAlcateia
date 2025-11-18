@@ -1,3 +1,7 @@
+//Beatriz Alonso de Lima Soares
+//João Paulo Leal Martins
+//Marcos Pedro Maciel Ramalho
+
 package pessoas;
 import vender.Venda;
 
@@ -15,11 +19,6 @@ public class Caixa extends Pessoa {
     public void mostrarLucro() {
         System.out.println("R$ " + this.valorTotalTotal);
     }
-    
-    // Este método pode ser removido pois não é mais usado
-    public void somarValorTotal(Venda venda){
-        venda.calcularTotal();
-    }
 
     public void emitirRecibo(Venda venda) {
         venda.gerarNotaFiscal();
@@ -30,7 +29,6 @@ public class Caixa extends Pessoa {
         System.out.println("Valor R$ " + valor + " adicionado ao lucro total. Lucro atual: R$ " + this.valorTotalTotal);
     }
     
-    @Override
     public void exibirDados() {
         System.out.println("Telefone: " + this.getTelefone());
         System.out.println("CPF: " + this.getCpf());

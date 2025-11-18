@@ -1,3 +1,7 @@
+//Beatriz Alonso de Lima Soares
+//João Paulo Leal Martins
+//Marcos Pedro Maciel Ramalho
+
 package pessoas;
 public abstract class Pessoa {
     protected String telefone;

@@ -1,3 +1,7 @@
+//Beatriz Alonso de Lima Soares
+//João Paulo Leal Martins
+//Marcos Pedro Maciel Ramalho
+
 package pessoas;
 
 import vender.CartaoBanco;
@@ -21,5 +25,8 @@ public class Cliente extends Pessoa {
         } else {
             return false;
         }
+    }
+    public CartaoBanco getCartao() {
+        return cartao;
     }
 }

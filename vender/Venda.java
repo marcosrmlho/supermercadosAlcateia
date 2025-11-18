@@ -1,3 +1,7 @@
+//Beatriz Alonso de Lima Soares
+//João Paulo Leal Martins
+//Marcos Pedro Maciel Ramalho
+
 package vender;
 
 public class Venda {
@@ -37,7 +41,7 @@ public class Venda {
                 carrinho[i] = produto;
                 quantidades[i] = quantidade;
                 this.valorTotal += produto.getPreco() * quantidade;
-                System.out.println("Produto " + produto.getNome() + " adicionado ao carrinho.");
+                System.out.println("\n\nProduto " + produto.getNome() + " adicionado ao carrinho.");
                 return;
             }
         }
@@ -60,21 +64,22 @@ public class Venda {
     }
     
     public void exibirCarrinho(){
-        System.out.println("Conteúdo do carrinho:");
+        System.out.println("\n\nConteúdo do carrinho:");
         boolean carrinhoVazio = true;
         for (int i = 0; i < carrinho.length; i++){
             if (carrinho[i] != null){
                 System.out.println("Produto " + (i+1) + ": " + carrinho[i].getNome() + 
                                  " | Preço: R$ " + carrinho[i].getPreco() + 
                                  " | Quantidade: " + quantidades[i] +
-                                 " | Subtotal: R$ " + (carrinho[i].getPreco() * quantidades[i]));
+                                 " | Subtotal: R$ " + (carrinho[i].getPreco() * quantidades[i] +
+                                 " | Código: " + carrinho[i].getCodigo()));
                 carrinhoVazio = false;
             }
         }
         if (carrinhoVazio) {
             System.out.println("Carrinho vazio.");
         }
-        System.out.println("Valor total: R$ " + this.valorTotal);
+        System.out.println("\nValor total: R$ " + this.valorTotal);
     }
     
     public void gerarNotaFiscal(){

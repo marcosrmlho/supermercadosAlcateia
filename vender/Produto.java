@@ -1,3 +1,7 @@
+//Beatriz Alonso de Lima Soares
+//João Paulo Leal Martins
+//Marcos Pedro Maciel Ramalho
+
 package vender;
 public enum Produto {
     LEITE("Leite", 5.00, 1),
