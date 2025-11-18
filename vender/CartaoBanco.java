@@ -1,39 +1,78 @@
 package vender;
 public class CartaoBanco {
     private String numeroCartao;
-    private String validade;
-    private String bandeira;
     private double limite;
     private double saldoDisponivel;
     private boolean bloqueado;
-    //05.11.2025: revisar necessidades de atributos, além de considerar a adição de um atributo "tipoCartao" --ramalho
+    private boolean tipoCartao;
 
-    public CartaoBanco(String numeroCartao, String validade, String bandeira, double limite) {
+    public CartaoBanco(String numeroCartao, double limite, boolean tipoCartao) {
         this.numeroCartao = numeroCartao;
-        this.validade = validade;
-        this.bandeira = bandeira;
         this.limite = limite;
-        this.saldoDisponivel = limite;
+        this.saldoDisponivel = tipoCartao ? 0 : 1000.0; // Débito começa com saldo
         this.bloqueado = false;
+        this.tipoCartao = tipoCartao;
     }
-    public boolean autorizarPagamento() {
-        // Lógica para autorização de pagamento: verificar se: 01.- o cartao ta bloqueado; 02.- o cartao tem saldo ou limite para realizar a transação. ao final, se todas as condições estiverem certas, retira o dinheiro da conta e chama a funcao de "gerarNotaFiscal()" da classe Venda.
-        return false; //placeholder
+    
+    public boolean autorizarPagamento(double valor) {
+        if (this.bloqueado) {
+            System.out.println("Cartão bloqueado. Pagamento não autorizado.");
+            return false;
+        }
+
+        if (this.tipoCartao) {
+            if (valor <= this.limite) {
+                this.limite -= valor;
+                System.out.println("Pagamento de R$ " + valor + " autorizado no cartão de crédito.");
+                return true;
+            } else {
+                System.out.println("Limite insuficiente no cartão de crédito. Pagamento não autorizado.");
+                return false;
+            }
+        } else {
+            if (valor <= this.saldoDisponivel) {
+                this.saldoDisponivel -= valor;
+                System.out.println("Pagamento de R$ " + valor + " autorizado no cartão de débito.");
+                return true;
+            } else {
+                System.out.println("Saldo insuficiente no cartão de débito. Pagamento não autorizado.");
+                return false;
+            }
+        }
     }
 
     public void atualizarLimite(double novoLimite) {
         this.limite = novoLimite;
     }
 
+    public void adicionarSaldo(double valor) {
+        if (!this.bloqueado) {
+            if (valor > 0) {
+                this.saldoDisponivel += valor;
+                System.out.println("Saldo adicionado: R$ " + valor);
+            }
+            else {
+                System.out.println("Valor inválido para adicionar saldo.");
+            }
+        }
+        else {
+            System.out.println("Cartão bloqueado. Não é possível adicionar saldo.");
+        }
+    }
+
     public void bloquear() {
         this.bloqueado = true;
+        System.out.println("Cartão bloqueado.");
     }
+
     public void exibirDados() {
         System.out.println("Número do Cartão: " + this.numeroCartao);
-        System.out.println("Validade: " + this.validade);
-        System.out.println("Bandeira: " + this.bandeira);
-        System.out.println("Limite: " + this.limite);
-        System.out.println("Saldo Disponível: " + this.saldoDisponivel);
+        if (this.tipoCartao) {
+            System.out.println("Limite Disponível: R$ " + this.limite);
+        } else {
+            System.out.println("Saldo Disponível: R$ " + this.saldoDisponivel);
+        }
         System.out.println("Bloqueado: " + this.bloqueado);
+        System.out.println("Tipo de Cartão: " + (this.tipoCartao ? "Crédito" : "Débito"));
     }
 }

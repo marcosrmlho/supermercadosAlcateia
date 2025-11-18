@@ -1,37 +1,100 @@
 package vender;
 
-import java.util.Scanner;
-
 public class Venda {
     private String dataHora;
     private double valorTotal;
-    private String formaPagamento;
-    //05.11.2025: criar um array de produtos --ramalho
+    private Produto[] carrinho = new Produto[50];
+    private int[] quantidades = new int[50];
 
-    public Venda(String dataHora, Scanner teclado) {
+    public Venda(String dataHora) {
         this.dataHora = dataHora;
-        insiraFormaPagamento(teclado);
-        //05.11.2025: entender como continuar aqui (pode colocar método com scanner dentro de construtor?) --ramalho
+        this.valorTotal = 0;
+    } 
 
-    }
-    public void insiraFormaPagamento(Scanner teclado){
-        System.out.println("Insira a forma de pagamento (Crédito | Débito): ");
-        this.formaPagamento = teclado.nextLine();
+    public void exibirListaProdutosDisponiveis(){
+         Produto.listarProdutos(); 
     }
 
     public void calcularTotal(){
-        // Lógica para calcular o total da venda: somar os valores (multiplicado pelas quantidades) de cada produto
+        double total = 0;
+        for (int i = 0; i < carrinho.length; i++){
+            if (carrinho[i] != null){
+                total += carrinho[i].getPreco() * quantidades[i];
+            }
+        }
+        this.valorTotal = total;
     }
-    public void adicionarProduto(){
-        // Lógica para adicionar produto à venda: adicionar um produto e quantidade (digitando o nome e quantidade) no array de produtos.
+    
+    public void adicionarProduto(int codigo, int quantidade){
+        Produto produto = Produto.buscarPorCodigo(codigo);
+        if (produto == null){
+            System.out.println("Produto com código " + codigo + " não encontrado.");
+            return;
+        }
+
+        for (int i = 0; i < carrinho.length; i++){
+            if (carrinho[i] == null){
+                carrinho[i] = produto;
+                quantidades[i] = quantidade;
+                this.valorTotal += produto.getPreco() * quantidade;
+                System.out.println("Produto " + produto.getNome() + " adicionado ao carrinho.");
+                return;
+            }
+        }
+
+        System.out.println("Carrinho cheio! Não é possível adicionar mais produtos.");
     }
-    public void removerProduto(){
-        // Lógica para remover produto da venda: tirar o produto (todas as quantidades) da lista de produtos (retirar pelo nome do produto).
+
+    public void removerProduto(int codigo){
+        for (int i = 0; i < carrinho.length; i++){
+            if (carrinho[i] != null && carrinho[i].getCodigo() == codigo){
+                this.valorTotal -= carrinho[i].getPreco() * quantidades[i];
+                System.out.println("Produto " + carrinho[i].getNome() + " removido do carrinho.");
+                carrinho[i] = null;
+                quantidades[i] = 0;
+                return;
+            }
+        }
+
+        System.out.println("Produto com código " + codigo + " não encontrado no carrinho.");
     }
+    
+    public void exibirCarrinho(){
+        System.out.println("Conteúdo do carrinho:");
+        boolean carrinhoVazio = true;
+        for (int i = 0; i < carrinho.length; i++){
+            if (carrinho[i] != null){
+                System.out.println("Produto " + (i+1) + ": " + carrinho[i].getNome() + 
+                                 " | Preço: R$ " + carrinho[i].getPreco() + 
+                                 " | Quantidade: " + quantidades[i] +
+                                 " | Subtotal: R$ " + (carrinho[i].getPreco() * quantidades[i]));
+                carrinhoVazio = false;
+            }
+        }
+        if (carrinhoVazio) {
+            System.out.println("Carrinho vazio.");
+        }
+        System.out.println("Valor total: R$ " + this.valorTotal);
+    }
+    
     public void gerarNotaFiscal(){
+        System.out.println("\n=== NOTA FISCAL ===");
         System.out.println("Data e hora: " + this.dataHora);
-        System.out.println("Valor total: " + this.valorTotal);
-        System.out.println("Forma de pagamento: " + this.formaPagamento);
-        // Lógica para exibir dados dos produtos comprados na venda (chamar o "exibirDados()" de cada produto.)
+        System.out.println("Valor total: R$ " + this.valorTotal);
+        System.out.println("Itens:");
+
+        for (int i = 0; i < carrinho.length; i++){
+            if (carrinho[i] != null){
+                System.out.println("  " + carrinho[i].getNome() + 
+                                 " - R$ " + carrinho[i].getPreco() + 
+                                 " x " + quantidades[i] + 
+                                 " = R$ " + (carrinho[i].getPreco() * quantidades[i]));
+            } 
+        }
+        System.out.println("====================\n");
+    }
+    
+    public double getValorTotal() {
+        return valorTotal;
     }
 }
