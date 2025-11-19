@@ -8,7 +8,7 @@ public class CartaoBanco {
     private double limite;
     private double saldoDisponivel;
     private boolean tipoCartao;
-
+    /* fazer uma mudança para deixar mais fluído */
     public CartaoBanco(String numeroCartao, double limite, double saldoInicial) {
         this.numeroCartao = numeroCartao;
         this.limite = limite;

@@ -3,7 +3,6 @@
 //Marcos Pedro Maciel Ramalho
 
 package pessoas;
-
 import vender.CartaoBanco;
 public class Cliente extends Pessoa {
     private CartaoBanco cartao;

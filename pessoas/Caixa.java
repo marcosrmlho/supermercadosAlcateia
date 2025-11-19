@@ -16,17 +16,17 @@ public class Caixa extends Pessoa {
         this.valorTotalTotal = 0;
     }       
     
+    public void somarValorTotalTotal(double valor) {
+        this.valorTotalTotal += valor;
+        System.out.println("Valor R$ " + valor + " adicionado ao lucro total. Lucro atual: R$ " + this.valorTotalTotal);
+    }
+
     public void mostrarLucro() {
         System.out.println("R$ " + this.valorTotalTotal);
     }
 
-    public void emitirRecibo(Venda venda) {
-        venda.gerarNotaFiscal();
-    }
-
-    public void somarValorTotalTotal(double valor) {
-        this.valorTotalTotal += valor;
-        System.out.println("Valor R$ " + valor + " adicionado ao lucro total. Lucro atual: R$ " + this.valorTotalTotal);
+    public void emitirRecibo(Venda venda, Cliente cliente, Caixa caixa) {
+        venda.gerarNotaFiscal(cliente, caixa);
     }
     
     public void exibirDados() {

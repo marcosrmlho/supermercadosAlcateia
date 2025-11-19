@@ -29,7 +29,7 @@ public class Principal {
                 boolean compraConcluida = adicionarRemoverProdutos(venda, caixa1, cliente, teclado);
 
                 if (compraConcluida) {
-                    caixa1.emitirRecibo(venda);
+                    caixa1.emitirRecibo(venda, cliente, caixa1);
                     caixa1.somarValorTotalTotal(venda.getValorTotal());
                     if (cliente.getCartao().tipoCartao()) {
                         System.out.println("Limite atual do cartão de crédito após a compra: R$ " + cliente.getCartao().getLimite());
@@ -93,8 +93,6 @@ public class Principal {
         String telefone = teclado.nextLine();
         System.out.println("Digite o CPF do cliente:");
         String cpf = teclado.nextLine();
-        System.out.println("Digite o email do cliente:");
-        String email = teclado.nextLine();
         System.out.println("\n\n");
         CartaoBanco cartao = leCriaCartaoBanco(teclado);
         

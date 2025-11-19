@@ -3,6 +3,7 @@
 //Marcos Pedro Maciel Ramalho
 
 package vender;
+import pessoas.*;
 
 public class Venda {
     private String dataHora;
@@ -82,8 +83,12 @@ public class Venda {
         System.out.println("\nValor total: R$ " + this.valorTotal);
     }
     
-    public void gerarNotaFiscal(){
+    public void gerarNotaFiscal(Cliente cliente, Caixa caixa) {
         System.out.println("\n=== NOTA FISCAL ===");
+        System.out.println("Cliente:");
+        cliente.exibirDados();
+        System.out.println("\nCaixa:");
+        caixa.exibirDados();
         System.out.println("Data e hora: " + this.dataHora);
         System.out.println("Valor total: R$ " + this.valorTotal);
         System.out.println("Itens:");
